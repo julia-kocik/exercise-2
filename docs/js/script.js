@@ -7,7 +7,6 @@ const tableContent = document.querySelector('.table_content');
 const defaultRaw = document.getElementById('default_raw');
 
 
-
 const submitForm = (e) => {
   //prevent default
   e.preventDefault();
@@ -16,10 +15,10 @@ const submitForm = (e) => {
     //clear default raw 
     defaultRaw.innerHTML = '';
     //save in local storage
-    const books = [];
     const formObj = {title: title.value, author: author.value, priority: priority.value, category: category.value};
-    books.push(formObj);
-    localStorage.setItem('books', JSON.stringify(books));
+    const currentStorage = JSON.parse(localStorage.getItem('books'));
+    console.log(currentStorage);
+    localStorage.setItem('books', JSON.stringify([...currentStorage, formObj]));
     const bookArray = JSON.parse(localStorage.getItem('books'));
     bookArray.map(item => {
       //append tr to the table
