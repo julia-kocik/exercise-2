@@ -13,10 +13,20 @@ const submitForm = (e) => {
   if(title.value.length >= 1 && author.value.length >=3 && priority.value >=1 && priority.value <=5 && category.value) {
     //clear default raw 
     defaultRaw.innerHTML = '';
-    //append tr to the table
-    const row = document.createElement('tr');
-    row.innerHTML = `<td>${title.value}</td><td>${author.value}</td><td>${priority.value}</td><td>${category.value}</td>`;
-    tableContent.appendChild(row);
+    //save in local storage
+    localStorage.clear();
+    const formArr = [title.value, author.value, priority.value, category.value];
+    localStorage.setItem(title.value, formArr);
+    console.log(localStorage);
+    for(let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      const value = localStorage.getItem(key);
+      const splitArr = value.split(',');
+      //append tr to the table
+      const row = document.createElement('tr');
+      row.innerHTML = `<td>${splitArr[0]}</td><td>${splitArr[1]}</td><td>${splitArr[2]}</td><td>${splitArr[3]}</td>`;
+      tableContent.appendChild(row);
+    }
     //clear form fields
     title.value = '';
     author.value = '';
