@@ -6,6 +6,8 @@ const category = document.getElementById('category');
 const tableContent = document.querySelector('.table_content');
 const defaultRaw = document.getElementById('default_raw');
 
+
+
 const submitForm = (e) => {
   //prevent default
   e.preventDefault();
@@ -14,19 +16,17 @@ const submitForm = (e) => {
     //clear default raw 
     defaultRaw.innerHTML = '';
     //save in local storage
-    localStorage.clear();
-    const formArr = [title.value, author.value, priority.value, category.value];
-    localStorage.setItem(title.value, formArr);
-    console.log(localStorage);
-    for(let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      const value = localStorage.getItem(key);
-      const splitArr = value.split(',');
+    const books = [];
+    const formObj = {title: title.value, author: author.value, priority: priority.value, category: category.value};
+    books.push(formObj);
+    localStorage.setItem('books', JSON.stringify(books));
+    const bookArray = JSON.parse(localStorage.getItem('books'));
+    bookArray.map(item => {
       //append tr to the table
       const row = document.createElement('tr');
-      row.innerHTML = `<td>${splitArr[0]}</td><td>${splitArr[1]}</td><td>${splitArr[2]}</td><td>${splitArr[3]}</td>`;
+      row.innerHTML = `<td>${item.title}</td><td>${item.author}</td><td>${item.priority}</td><td>${item.category}</td>`;
       tableContent.appendChild(row);
-    }
+    });
     //clear form fields
     title.value = '';
     author.value = '';
@@ -38,3 +38,8 @@ const submitForm = (e) => {
 };
 
 form.addEventListener('submit', submitForm);
+
+
+       
+
+
