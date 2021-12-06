@@ -8,30 +8,24 @@ const defaultRow = document.getElementById('default_row');
 
 
 const submitForm = (e) => {
-  //prevent default, zapobiega przeładowaniu+
+  //prevent default
   e.preventDefault();
-  //validation+
+  //validation
   if(title.value.length >= 1 && author.value.length >=3 && priority.value >=1 && priority.value <=5 && category.value) {
-    //clear default raw usuwa domyślny row+
+    //clear default row
     defaultRow.innerHTML = '';
-    //save in local storage, tworzymy obiekt z wartosci wpisanych w inputach
+    //save in local storage
     const formObj = {title: title.value, author: author.value, priority: priority.value, category: category.value};
-    //console.log(formObj);
     const currentStorage = JSON.parse(localStorage.getItem('books'));
-    //console.log(currentStorage);
     if(currentStorage !== null) {
       localStorage.setItem('books', JSON.stringify([...currentStorage, formObj]));
     } else {
       localStorage.setItem('books', JSON.stringify([formObj]));
     }
-    //const bookArray = JSON.parse(localStorage.getItem('books'));
-    //dołączać jeden element
-    
-    //append tr to the table
+    //append one tr to the table
     const row = document.createElement('tr');
     row.innerHTML = `<td>${formObj.title}</td><td>${formObj.author}</td><td>${formObj.priority}</td><td>${formObj.category}</td>`;
     tableContent.appendChild(row);
-    
     //clear form fields
     title.value = '';
     author.value = '';
@@ -42,7 +36,7 @@ const submitForm = (e) => {
   }
 };
 
-//renderować cały array jeszcze raz po reload
+//render whole array after reload
 const setTableAfterReload = () => {
   defaultRow.innerHTML = '';
   const currentStorage = JSON.parse(localStorage.getItem('books'));
