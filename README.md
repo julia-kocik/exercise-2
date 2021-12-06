@@ -1,4 +1,4 @@
-## Exercise - 1
+## Exercise - 2
 https://julia-kocik.github.io/exercise-2/
 
 ## How to use
